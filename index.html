@@ -3,10 +3,28 @@
 <head>
 	<title> Mi Banco </title>
 	<meta charset="utf-8" />
+
+	<link rel="stylesheet" href="http://necolas.github.com/normalize.css/2.0.1/normalize.css">
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">
 </head>
 <body>
+	<div class="container" ng-app="BancoModule">
+	  <div class="hero-unit">
+	    <h1>Bienvenido a Mi Banco</h1>
 
-<script type="text/javascript" src="/assets/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="/assets/js/angular.min.js"></script>
+	    <br>  <br>
+	    <div ng-controller="CuentasCtrl">
+	    	<p> El Monto en la cuenta A es: ${{cuentaA}} </p>
+	    	<p> El Monto en la cuenta B es: ${{cuentaB}} </p>
+	      <!--p><input type="text" ng-model="cuentaA" placeholder="Start typing..."></p-->
+	    </div>
+	  </div>
+	</div>
+
+
+	<script type="text/javascript" src="/assets/js/libs/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/assets/js/libs/angular.min.js"></script>
+	<script type="text/javascript" src="/assets/js/libs/angular-local-storage.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
 </body>
 </html>
