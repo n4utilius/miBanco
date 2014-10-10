@@ -22,18 +22,18 @@
 	    </section>
 
 	    <ul class="cuentas">
-	    	<li ng-repeat="cuenta in cuentas"> 
+	    	<li ng-repeat="monto in cuentas"> 
 	    		<h2 class="nombre text-center"> Cuenta {{ $index }} </h2> 
-	    		<p class="monto"> Monto: {{ cuenta | currency }} </p>
+	    		<p class="monto"> Monto: {{ monto | currency }} </p>
 	    		<br>
 	    		<form>
-	    			$ <input type="number" min="1" max="{{ cuenta }}" class="cantidad"> 
-	    			<input type="submit" class="btn btn-primary" value="Retirar"> 
+	    			$ <input type="number" min="1" max="{{ monto }}" class="cantidad" ng-model="cantidad_retiro"> 
+	    			<input type="submit" class="btn btn-primary" value="Retirar" ng-click="retirar($index, cantidad_retiro)"> 
 	    		</form>
 
 	    		<form>
-	    			$ <input type="number" min="1" class="cantidad"> 
-	    			<input type="submit" class="btn btn-success right" value="Depositar">
+	    			$ <input type="number" min="1" max="{{ cartera }}" class="cantidad" ng-model="cantidad_deposito"> 
+	    			<input type="submit" class="btn btn-success right" value="Depositar" ng-click="depositar(cantidad_deposito)">
 	    		</form>
 	    	</li>
 	    </ul>

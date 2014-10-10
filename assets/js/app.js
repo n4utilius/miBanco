@@ -19,6 +19,16 @@ angular.module('BancoModule', ['LocalStorageModule'])
     $scope.cuentas[0] = localStorageService.get('cuenta0');
     $scope.cuentas[1] = localStorageService.get('cuenta1');
     $scope.cartera = localStorageService.get('cartera');
+
+    $scope.retirar = function(cuenta, monto){
+      if(monto < $scope.cuentas[cuenta])
+        alert(monto)
+    }
+
+    $scope.depositar = function(monto){
+      if(monto < $scope.cartera)
+        alert(monto)
+    } 
     //$scope.cuentas[4] = localStorageService.get('cuenta1');
 
     //$scope.$watch('cuentaA', function(value){
