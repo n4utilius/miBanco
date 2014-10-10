@@ -1,8 +1,9 @@
-angular.module('BancoModule', ['LocalStorageModule'])
+angular.module('BancoApp', ['LocalStorageModule'])
 .config(['localStorageServiceProvider', function(localStorageServiceProvider){
-  localStorageServiceProvider.setPrefix('bancoPrefix');
+  localStorageServiceProvider.setPrefix('BancoApp');
   localStorageServiceProvider.setStorageCookieDomain('banco.com');
   localStorageServiceProvider.setStorageType('sessionStorage');
+  localStorageServiceProvider.setNotify(true, true);
 }])
 .controller('CuentasCtrl', [
   '$scope',
@@ -16,6 +17,9 @@ angular.module('BancoModule', ['LocalStorageModule'])
     }
 
     $scope.cuentas = []
+    $scope.historial = []
+    $scope.acciones = []
+
     $scope.cuentas[0] = localStorageService.get('cuenta0');
     $scope.cuentas[1] = localStorageService.get('cuenta1');
     $scope.cartera = localStorageService.get('cartera');
@@ -24,6 +28,8 @@ angular.module('BancoModule', ['LocalStorageModule'])
       if( $scope.cuentas[num_cuenta] && monto <= $scope.cuentas[num_cuenta] ){
         $scope.cuentas[num_cuenta] -= monto
         $scope.cartera = parseInt($scope.cartera) + parseInt(monto) 
+        
+        $scope.acciones.push("Se retiro la cantidad de $" + monto + " de la cuenta " + num_cuenta)
       }
     }
 
@@ -31,6 +37,8 @@ angular.module('BancoModule', ['LocalStorageModule'])
       if(monto <= $scope.cartera){
         $scope.cartera -= monto
         $scope.cuentas[num_cuenta] = parseInt($scope.cuentas[num_cuenta]) + parseInt(monto)
+        
+        $scope.acciones.push("Se deposito la cantidad de $" + monto + " a la cuenta " + num_cuenta)
       }
     } 
 
@@ -38,6 +46,15 @@ angular.module('BancoModule', ['LocalStorageModule'])
       var cuenta_nueva = 'cuenta' + String($scope.cuentas.length);
       localStorageService.set(cuenta_nueva, 0);
       $scope.cuentas.push( localStorageService.get(cuenta_nueva) )
+        
+      $scope.acciones.push("Se creo la cuenta número " + ($scope.cuentas.length - 1) )
+
+    }
+
+    $scope.mostrar_ultimas_acciones = function(){
+      for(var i in $scope.acciones)
+        $scope.historial.push( $scope.acciones[i])
+      $scope.acciones = []
     }
 
     $scope.$watch('cuentas', function(value){

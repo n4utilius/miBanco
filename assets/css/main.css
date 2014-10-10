@@ -3,6 +3,12 @@
 	padding: 5px;
 	margin: 5px;
 	max-width: 900px;
+	height: 260px;
+	max-height: 260px;
+	scroll-y:auto;
+	width: 900px;
+	display: block;
+
 }
 
 .cuentas li, .cartera{

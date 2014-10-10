@@ -9,14 +9,15 @@
 	<link href="/assets/css/main.css" rel="stylesheet">
 </head>
 <body>
-	<div class="container" ng-app="BancoModule">
+	<div class="container" ng-app="BancoApp">
 	  <div class="hero-unit">
 	    <h1>Bienvenido a Mi Banco</h1>
 	  </div>
   
     <div ng-controller="CuentasCtrl">
 
-    	<a href="#" class="btn btn-warning text-right" ng-click="crear_cuenta()" value="Crear Cuenta"> Crear Cuenta </a>
+    	<a href="#" class="btn btn-warning text-right" ng-click="crear_cuenta()" > Crear Cuenta </a>
+    	<a href="#" class="btn btn-info text-right" ng-click="mostrar_ultimas_acciones()" > Mostrar historial </a>
 
 	    <section class="cartera">
     		<h2 class="nombre text-center"> Mi cartera  </h2> 
@@ -39,7 +40,13 @@
 	    		</form>
 	    	</li>
 	    </ul>
+	    <br>
+	    <br>
+	    <br>
 
+	    <ul class="historial">
+	    	<li ng-repeat="accion in historial track by $index"> {{accion}} </li>
+	    </ul>
     </div>
 	</div>
 
