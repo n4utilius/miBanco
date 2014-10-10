@@ -11,12 +11,14 @@ angular.module('BancoModule', ['LocalStorageModule'])
     if ($scope.initialize == undefined){
       localStorageService.set('cuenta0',3000);
       localStorageService.set('cuenta1',8000);
+      localStorageService.set('cartera',28000);
       $scope.initialize = true;
     }
 
     $scope.cuentas = []
     $scope.cuentas[0] = localStorageService.get('cuenta0');
     $scope.cuentas[1] = localStorageService.get('cuenta1');
+    $scope.cartera = localStorageService.get('cartera');
     //$scope.cuentas[4] = localStorageService.get('cuenta1');
 
     //$scope.$watch('cuentaA', function(value){

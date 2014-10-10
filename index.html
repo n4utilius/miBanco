@@ -4,8 +4,8 @@
 	<title> Mi Banco </title>
 	<meta charset="utf-8" />
 
-	<link rel="stylesheet" href="http://necolas.github.com/normalize.css/2.0.1/normalize.css">
-	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/css/normalize.css">
+	<link href="/assets/css/bootstrap-combined.min.css" rel="stylesheet">
 	<link href="/assets/css/main.css" rel="stylesheet">
 </head>
 <body>
@@ -18,14 +18,14 @@
 
 	    <section class="cartera">
     		<h2 class="nombre text-center"> Mi cartera  </h2> 
-    		<p class="monto"> Monto: ${{ 0 }} </p>
+    		<p class="monto"> Monto: {{ cartera | currency }} </p>
 	    </section>
 
 	    <ul class="cuentas">
 	    	<li ng-repeat="cuenta in cuentas"> 
 	    		<h2 class="nombre text-center"> Cuenta {{ $index }} </h2> 
-	    		<p class="monto"> Monto: ${{ cuenta }} </p>
-
+	    		<p class="monto"> Monto: {{ cuenta | currency }} </p>
+	    		<br>
 	    		<form>
 	    			$ <input type="number" min="1" max="{{ cuenta }}" class="cantidad"> 
 	    			<input type="submit" class="btn btn-primary" value="Retirar"> 

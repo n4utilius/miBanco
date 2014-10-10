@@ -1,3 +1,4 @@
+
 .cuentas{
 	padding: 5px;
 	margin: 5px;
@@ -21,6 +22,12 @@
 	list-style:none;
 	float: left;
 	border: 3px solid red;
+}
+
+.monto{
+	padding: 0;
+	margin: 0;
+	font-size: 1.2em;
 }
 
 .cartera{
