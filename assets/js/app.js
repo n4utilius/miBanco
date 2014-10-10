@@ -9,26 +9,32 @@ angular.module('BancoApp', ['LocalStorageModule'])
   '$scope',
   'localStorageService',
   function($scope, localStorageService) {
-    if ($scope.initialize == undefined){
+    if (!localStorageService.get('initialize')){
       localStorageService.set('cuenta0',3000);
       localStorageService.set('cuenta1',8000);
       localStorageService.set('cartera',28000);
-      $scope.initialize = true;
+      localStorageService.set('initialize', true);
     }
 
     $scope.cuentas = []
     $scope.historial = []
     $scope.acciones = []
 
-    $scope.cuentas[0] = localStorageService.get('cuenta0');
-    $scope.cuentas[1] = localStorageService.get('cuenta1');
+    var lsKeys = localStorageService.keys();
+    
+    for (var i in lsKeys){
+      if(lsKeys[i].indexOf("cuenta") > -1)
+        $scope.cuentas.push(localStorageService.get(lsKeys[i]));
+    }
+    
     $scope.cartera = localStorageService.get('cartera');
 
     $scope.retirar = function(num_cuenta, monto){
       if( $scope.cuentas[num_cuenta] && monto <= $scope.cuentas[num_cuenta] ){
         $scope.cuentas[num_cuenta] -= monto
-        $scope.cartera = parseInt($scope.cartera) + parseInt(monto) 
-        
+        $scope.cartera = parseInt($scope.cartera) + parseInt(monto)
+
+        localStorageService.set('cuenta' + num_cuenta,  $scope.cuentas[num_cuenta]);
         $scope.acciones.push("Se retiro la cantidad de $" + monto + " de la cuenta " + num_cuenta)
       }
     }
@@ -37,19 +43,18 @@ angular.module('BancoApp', ['LocalStorageModule'])
       if(monto <= $scope.cartera){
         $scope.cartera -= monto
         $scope.cuentas[num_cuenta] = parseInt($scope.cuentas[num_cuenta]) + parseInt(monto)
+        localStorageService.set('cuenta' + num_cuenta,  $scope.cuentas[num_cuenta]);
         
         $scope.acciones.push("Se deposito la cantidad de $" + monto + " a la cuenta " + num_cuenta)
-
-
-        
       }
     } 
 
     $scope.crear_cuenta = function(){
       var cuenta_nueva = 'cuenta' + String($scope.cuentas.length);
       localStorageService.set(cuenta_nueva, 0);
-      $scope.cuentas.push( localStorageService.get(cuenta_nueva) )
-        
+      console.log(cuenta_nueva)
+      $scope.cuentas.push( localStorageService.get(cuenta_nueva));
+      
       $scope.acciones.push("Se creo la cuenta número " + ($scope.cuentas.length - 1) )
 
     }
@@ -65,18 +70,12 @@ angular.module('BancoApp', ['LocalStorageModule'])
       }
     }
 
-    $scope.$watch('cuentas', function(value){
-      for (var i in value) localStorageService.set('cuenta' + i, value[i]);
-    });
-
     $scope.$watch('cartera', function(value){
       localStorageService.set('cartera', parseInt(value));
         if(value == 0) {
+          alert("Se ha depositado todo el dinero disponible en su cartera")
           $scope.mostrar_ultimas_acciones()
-          alert("se ha depositado todo el dinero disponible en su cartera")
         }
-
-
     });
     
 
