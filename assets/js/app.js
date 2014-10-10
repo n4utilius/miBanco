@@ -20,24 +20,29 @@ angular.module('BancoModule', ['LocalStorageModule'])
     $scope.cuentas[1] = localStorageService.get('cuenta1');
     $scope.cartera = localStorageService.get('cartera');
 
-    $scope.retirar = function(cuenta, monto){
-      if(monto < $scope.cuentas[cuenta])
-        alert(monto)
+    $scope.retirar = function(num_cuenta, monto){
+      if( $scope.cuentas[num_cuenta] && monto <= $scope.cuentas[num_cuenta] ){
+        $scope.cuentas[num_cuenta] -= monto
+        $scope.cartera = parseInt($scope.cartera) + parseInt(monto) 
+      }
     }
 
-    $scope.depositar = function(monto){
-      if(monto < $scope.cartera)
-        alert(monto)
+    $scope.depositar = function(num_cuenta, monto){
+      if(monto <= $scope.cartera){
+        $scope.cartera -= monto
+        $scope.cuentas[num_cuenta] = parseInt($scope.cuentas[num_cuenta]) + parseInt(monto)
+      }
+
     } 
-    //$scope.cuentas[4] = localStorageService.get('cuenta1');
 
-    //$scope.$watch('cuentaA', function(value){
-      //localStorageService.set('cuentaA',value);
-      //$scope.cuentaA = localStorageService.get('cuentaA');
+    $scope.$watch('cuentas', function(value){
+      for (var i in value) localStorageService.set('cuenta' + i, value[i]);
+    });
 
-      //$scope.cuentaB = localStorageService.get('cuentaB');
-      //localStorageService.set('cuentaB',value);
-    //});
+    $scope.$watch('cartera', function(value){
+      localStorageService.set('cartera', parseInt(value));
+    });
+    
 
     $scope.storageType = 'Local storage';
 
