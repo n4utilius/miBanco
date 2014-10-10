@@ -6,19 +6,39 @@
 
 	<link rel="stylesheet" href="http://necolas.github.com/normalize.css/2.0.1/normalize.css">
 	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">
+	<link href="/assets/css/main.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container" ng-app="BancoModule">
 	  <div class="hero-unit">
 	    <h1>Bienvenido a Mi Banco</h1>
-
-	    <br>  <br>
-	    <div ng-controller="CuentasCtrl">
-	    	<p> El Monto en la cuenta A es: ${{cuentaA}} </p>
-	    	<p> El Monto en la cuenta B es: ${{cuentaB}} </p>
-	      <!--p><input type="text" ng-model="cuentaA" placeholder="Start typing..."></p-->
-	    </div>
 	  </div>
+  
+    <div ng-controller="CuentasCtrl">
+
+	    <section class="cartera">
+    		<h2 class="nombre text-center"> Mi cartera  </h2> 
+    		<p class="monto"> Monto: ${{ 0 }} </p>
+	    </section>
+
+	    <ul class="cuentas">
+	    	<li ng-repeat="cuenta in cuentas"> 
+	    		<h2 class="nombre text-center"> Cuenta {{ $index }} </h2> 
+	    		<p class="monto"> Monto: ${{ cuenta }} </p>
+
+	    		<form>
+	    			$ <input type="number" min="1" max="{{ cuenta }}" class="cantidad"> 
+	    			<input type="submit" class="btn btn-primary" value="Retirar"> 
+	    		</form>
+
+	    		<form>
+	    			$ <input type="number" min="1" class="cantidad"> 
+	    			<input type="submit" class="btn btn-success right" value="Depositar">
+	    		</form>
+	    	</li>
+	    </ul>
+
+    </div>
 	</div>
 
 

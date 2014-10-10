@@ -8,16 +8,24 @@ angular.module('BancoModule', ['LocalStorageModule'])
   '$scope',
   'localStorageService',
   function($scope, localStorageService) {
-    
-    $scope.$watch('cuentaA', function(value){
-      if ($scope.initialize == undefined){
-        localStorageService.set('cuentaA',3000);
-        localStorageService.set('cuentaB',8000);
-      }
+    if ($scope.initialize == undefined){
+      localStorageService.set('cuenta0',3000);
+      localStorageService.set('cuenta1',8000);
+      $scope.initialize = true;
+    }
+
+    $scope.cuentas = []
+    $scope.cuentas[0] = localStorageService.get('cuenta0');
+    $scope.cuentas[1] = localStorageService.get('cuenta1');
+    //$scope.cuentas[4] = localStorageService.get('cuenta1');
+
+    //$scope.$watch('cuentaA', function(value){
       //localStorageService.set('cuentaA',value);
-      $scope.cuentaA = localStorageService.get('cuentaA');
-      $scope.cuentaB = localStorageService.get('cuentaB');
-    });
+      //$scope.cuentaA = localStorageService.get('cuentaA');
+
+      //$scope.cuentaB = localStorageService.get('cuentaB');
+      //localStorageService.set('cuentaB',value);
+    //});
 
     $scope.storageType = 'Local storage';
 

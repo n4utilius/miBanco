@@ -1,0 +1,40 @@
+.cuentas{
+	padding: 5px;
+	margin: 5px;
+	max-width: 900px;
+}
+
+.cuentas li, .cartera{
+	width: 200px;
+	max-width: 200px;
+	height: 280px;
+	max-height: 280px;
+	margin: 5px;
+	padding:  5px;
+}
+
+.cuentas input[type='number']{
+	max-width: 80px;
+}
+
+.cuentas li{
+	list-style:none;
+	float: left;
+	border: 3px solid red;
+}
+
+.cartera{
+	border: 3px solid green;
+	position: fixed;
+	right: 0px;
+	margin-right: 60px;
+}
+
+.cuentas li .nombre, .cartera .nombre{
+	margin: 0 auto;
+	padding: 0 auto;
+}
+
+.cuentas li .monto, .cartera .monto{
+	font-weight: bolder;
+}
