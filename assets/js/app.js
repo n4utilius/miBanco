@@ -39,6 +39,9 @@ angular.module('BancoApp', ['LocalStorageModule'])
         $scope.cuentas[num_cuenta] = parseInt($scope.cuentas[num_cuenta]) + parseInt(monto)
         
         $scope.acciones.push("Se deposito la cantidad de $" + monto + " a la cuenta " + num_cuenta)
+
+
+        
       }
     } 
 
@@ -52,9 +55,14 @@ angular.module('BancoApp', ['LocalStorageModule'])
     }
 
     $scope.mostrar_ultimas_acciones = function(){
-      for(var i in $scope.acciones)
-        $scope.historial.push( $scope.acciones[i])
-      $scope.acciones = []
+      if($scope.acciones.length == 0){
+        $scope.historial.push("No se han realizado acciones")
+      }else {
+        if($scope.acciones.length == 1) $scope.historial = []
+        for(var i in $scope.acciones)
+          $scope.historial.push( $scope.acciones[i])
+        $scope.acciones = []
+      }
     }
 
     $scope.$watch('cuentas', function(value){
@@ -63,6 +71,12 @@ angular.module('BancoApp', ['LocalStorageModule'])
 
     $scope.$watch('cartera', function(value){
       localStorageService.set('cartera', parseInt(value));
+        if(value == 0) {
+          $scope.mostrar_ultimas_acciones()
+          alert("se ha depositado todo el dinero disponible en su cartera")
+        }
+
+
     });
     
 
