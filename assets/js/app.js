@@ -26,7 +26,7 @@ angular.module('BancoApp', ['LocalStorageModule'])
       if(lsKeys[i].indexOf("cuenta") > -1)
         $scope.cuentas.push(localStorageService.get(lsKeys[i]));
     }
-    
+
     $scope.cartera = localStorageService.get('cartera');
 
     $scope.retirar = function(num_cuenta, monto){
