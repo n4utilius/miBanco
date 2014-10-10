@@ -16,13 +16,15 @@
   
     <div ng-controller="CuentasCtrl">
 
+    	<a href="#" class="btn btn-warning text-right" ng-click="crear_cuenta()" value="Crear Cuenta"> Crear Cuenta </a>
+
 	    <section class="cartera">
     		<h2 class="nombre text-center"> Mi cartera  </h2> 
     		<p class="monto"> Monto: {{ cartera | currency }} </p>
 	    </section>
 
 	    <ul class="cuentas">
-	    	<li ng-repeat="monto in cuentas"> 
+	    	<li ng-repeat="monto in cuentas track by $index"> 
 	    		<h2 class="nombre text-center"> Cuenta {{ $index }} </h2> 
 	    		<p class="monto"> Monto: {{ monto | currency }} </p>
 	    		<br>

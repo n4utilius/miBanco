@@ -32,8 +32,13 @@ angular.module('BancoModule', ['LocalStorageModule'])
         $scope.cartera -= monto
         $scope.cuentas[num_cuenta] = parseInt($scope.cuentas[num_cuenta]) + parseInt(monto)
       }
-
     } 
+
+    $scope.crear_cuenta = function(){
+      var cuenta_nueva = 'cuenta' + String($scope.cuentas.length);
+      localStorageService.set(cuenta_nueva, 0);
+      $scope.cuentas.push( localStorageService.get(cuenta_nueva) )
+    }
 
     $scope.$watch('cuentas', function(value){
       for (var i in value) localStorageService.set('cuenta' + i, value[i]);
